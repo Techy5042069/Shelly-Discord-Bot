@@ -1,0 +1,7 @@
+{
+    "prefix" : "%",
+    "token" : "ODUzNjczNTk1MTcwNDU1NTUz.YMYzfQ.SW7HsSW-8iNcoBZ4VRiKIchEzII",
+    "cooldown": "25",
+    "exceptionRole": "KOexception",
+    "probfile": "./data/prob.json"
+}
