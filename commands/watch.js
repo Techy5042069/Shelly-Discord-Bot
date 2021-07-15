@@ -1,9 +1,9 @@
 // const fs = require('fs');
 module.exports = {
     cmdname: 'watch',
-    exec(msg, args, msgEmbed, ping, obj) {
+    exec(msg, args, obj) {
         // msg.mentions.
-        return getfunc(msg, args, msgEmbed, ping, obj);
+        return getfunc(msg, args, obj);
     }
 };
 

@@ -1,17 +1,17 @@
+module.exports = {
+    cmdname: 'prob',
+    exec(msg, args,obj) {
+        return getfunc(msg, args,obj);
+    },
+};
 const fs = require('fs');
 probFileLocation = './data/prob.json'
 let probFileObj = JSON.parse(fs.readFileSync(probFileLocation))
 let keys = Object.keys(probFileObj)
-module.exports = {
-    cmdname: 'prob',
-    exec(msg, args, msgEmbed, prefix) {
-        return getfunc(msg, args, msgEmbed, prefix);
-    },
-};
 
-function getfunc(msg, args, msgEmbed, prefix) {
+function getfunc(msg, args,obj) {
 
-    msgEmbed.setColor('#0099ff')
+    let msgEmbed = obj.msgEmbed.setColor('#0099ff')
         .setTitle('Probabiliites:')
         .setFooter(`note: 'U' infront of NFA and SFA means it's Unbanned , OF = optifine`)
 
@@ -34,7 +34,7 @@ function getfunc(msg, args, msgEmbed, prefix) {
             })
         }
     } else {
-        noValidArg(keys, msg, msgEmbed, prefix);
+        noValidArg(keys, msg, msgEmbed, obj.prefix);
         return;
     }
     msg.reply(msgEmbed)

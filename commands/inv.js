@@ -1,14 +1,14 @@
 const fs = require('fs');
 module.exports = {
     cmdname: 'inv',
-    exec(msg, args, msgEmbed, ping, obj) {
+    exec(msg, args, obj) {
         // msg.mentions.
 
-        return getfunc(msg, args, msgEmbed, obj);
+        return getfunc(msg, args, obj);
     }
 };
 
-function getfunc(msg, args, msgEmbed, obj) {
+function getfunc(msg, args, obj) {
     if (msg.member.hasPermission('ADMINISTRATOR') && args[0]) {
         user = getUserFromMention(args[0], msg);
         nameOfFile = `${user}.json`;
@@ -23,7 +23,7 @@ function getfunc(msg, args, msgEmbed, obj) {
             fs.readFileSync('./data/invs/' + nameOfFile)
         );
         let chicken = 'https://media.discordapp.net/attachments/862943946924621825/864148596639531048/standard_6.gif?width=230&height=230'
-
+        msgEmbed = obj.msgEmbed;
         msgEmbed
             .setColor('#0099ff')
             .setThumbnail(chicken)

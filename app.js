@@ -34,7 +34,7 @@ client.on('ready', () => {
 // client.wa.ping
 //read the msg and determine wethere to send msg or not...
 client.on('message', (msg) => {
-    if (!msg.content.startsWith(prefix) || msg.author.bot) return; //immediately exit checking if the message doesn't start with prefix and the usesr is bot
+    if (!msg.content.startsWith(prefix) || msg.author.bot || msg.guild == null) return; //immediately exit checking if the message doesn't start with prefix and the usesr is bot
     if (talkedRecently.has(msg.author.id) && !msg.member.roles.cache.find(role => role.name === exceptionRole)) {
         msg.channel.send(`Wait ${cooldown} seconds before , using commands again. - ${msg.author}`);
     } else {
@@ -57,7 +57,9 @@ client.on('message', (msg) => {
         //run respective command's function.ms
         try {
             console.log('command_executing.. : ' + command);
-            client.commands.get(command).exec(msg, args, new Discord.MessageEmbed(), prefix, {
+            client.commands.get(command).exec(msg, args, {
+                msgEmbed: new Discord.MessageEmbed(),
+                prefix: prefix,
                 client: client,
                 probFileLocation: probfile
             });

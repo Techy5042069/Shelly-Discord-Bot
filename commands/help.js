@@ -1,12 +1,13 @@
 module.exports = {
     cmdname: 'help',
-    exec(msg, args, msgEmbed, prefix) {
-        return getfunc(msg, args, msgEmbed, prefix);
+    exec(msg, args,obj) {
+        return getfunc(msg, args,obj);
     },
 };
 
-function getfunc(msg, args, msgEmbed, prefix) {
-    msgEmbed.setColor('#0099ff')
+function getfunc(msg, args, obj) {
+    prefix = obj.prefix;
+    obj.msgEmbed.setColor('#0099ff')
         .setTitle('Help:')
         .setDescription('Here are some commands currently available:')
         .addFields({
@@ -21,11 +22,15 @@ function getfunc(msg, args, msgEmbed, prefix) {
             name: "**USE**",
             value: `usage: ${prefix}use [keyname], to use up a key and open the respective crate`,
             // inline: true
-        },{
+        }, {
             name: "**PROBABILITY**",
             value: `usage: ${prefix}prob, shows what crates are available and their rates`,
             // inline: true
+        }, {
+            name: "**Creator**",
+            value: `usage: ${prefix}kreator, shows creator`,
+            // inline: true
         })
-    msg.reply(msgEmbed);
+    msg.reply(obj.msgEmbed);
     return console.log("processed!")
 }

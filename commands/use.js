@@ -2,8 +2,8 @@ let fs = require('fs');
 const Discord = require('discord.js');
 module.exports = {
     cmdname: 'use',
-    exec(msg, args, MsgEmbed, prefix) {
-        getfunc(msg, args, MsgEmbed, prefix); //this part is called from main handler file you now the app.js or index.js
+    exec(msg, args,obj) {
+        getfunc(msg, args,obj); //this part is called from main handler file you now the app.js or index.js
     }
 };
 
@@ -43,14 +43,16 @@ let probabilty = {
 let timerStorage = {}
 
 
-function getfunc(msg, args, MsgEmbed, prefix) {
+function getfunc(msg, args,obj) {
     //add if you want to but, add functions above too to XD
     firstArg = args[0];
+    let msgEmbed = obj.msgEmbed;
+    let prefix = obj.prefix;
     // storing some arguments ofc!
     if (firstArg == undefined) {
         //now checking first arg
         //runs on [prefix]key
-        MsgEmbed.setColor('#0099ff')
+        msgEmbed.setColor('#0099ff')
             .setTitle('bruhh gime some more detials')
             .addFields({
                 name: `do : ${prefix}use [name of key] to use a key`,
@@ -59,7 +61,7 @@ function getfunc(msg, args, MsgEmbed, prefix) {
                 name: `do : ${prefix}inv , to see your inventory!`,
                 value: `eg: ${prefix}inv`,
             })
-        msg.reply(MsgEmbed);
+        msg.reply(msgEmbed);
         return;
     }
 
@@ -135,7 +137,7 @@ function finalizeProcess(msg, num, crateName) { //do the final stuffs
     let returnVal = num
     try {
         let randomizer = Math.floor(Math.random() * Math.random() * 10000) / 100;
-        console.log(randomizer)
+        // console.log(randomizer)
         let luckyIndex; //index of the reward
         let calculatedVar //probability of the reward won
         // let rangeArr;
@@ -215,7 +217,8 @@ function finalizeProcess(msg, num, crateName) { //do the final stuffs
                 value: calculatedVar + '%'
             }, {
                 name: 'your generated number: ',
-                value: randomizer
+                value: randomizer,
+                inline: true
             })
             .setTimestamp()
             // .setImage(chicken)
