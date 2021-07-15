@@ -28,7 +28,7 @@ client.discordTogether = new DiscordTogether(client);
 
 client.on('ready', () => {
     console.log('Ready to begin! with prefix: ' + prefix);
-    let botAliveInterval = setInterval(keepBotAlive(client),1000*60*20) //20mins
+    let botAliveInterval = setInterval(() => keepBotAlive(client),1000*60*20) //20mins
 });
 // client.wa.ping
 //read the msg and determine wethere to send msg or not...
