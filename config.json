@@ -1,6 +1,5 @@
 {
     "prefix" : "%",
-    //"token" : "bot_token",  //enable this line and change the 'token' varriable in app.js to {token} = config.json
     "cooldown": "25",
     "exceptionRole": "KOexception",
     "probfile": "./data/prob.json"
