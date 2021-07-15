@@ -70,6 +70,6 @@ client.on('message', (msg) => {
     }
 });
 function keepBotAlive(client) {
-    client.channels.cache.get('865083859523993610').send(new Discord.MessageEmbed().setColor('#0099ff').setTitle(`keeping myself alive!`).setTimestamp())
-}
+    client.channels.cache.get('865083859523993610').send(new Discord.MessageEmbed().setColor('#0099ff').setTitle(`$T@Y!N @l!VE`).setTimestamp())
+}//kepping the bot alive from going down
 //eof // // // // // /// /// /// /// /// / /// /// /// / /// / // / // /made my techy504#2069 and Syrena
