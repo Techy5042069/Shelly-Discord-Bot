@@ -7,7 +7,7 @@ client.commands = new Discord.Collection();
 const talkedRecently = new Set();
 const { DiscordTogether } = require('discord-together');
 // const dotenv = require('dotenv')
-require('dotenv').config();
+// require('dotenv').config();
 //
 //
 const token = process.env.TOKEN;

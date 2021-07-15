@@ -7,7 +7,6 @@ module.exports = {
     }
 };
 let mode = ['youtube', 'poker', 'chess', 'betrayal', 'fishing']
-
 function getfunc(msg, args, obj) {
     if (msg.member.voice.channel) {
         if (!args[0]) {
