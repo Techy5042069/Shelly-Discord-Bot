@@ -28,6 +28,7 @@ client.discordTogether = new DiscordTogether(client);
 
 client.on('ready', () => {
     console.log('Ready to begin! with prefix: ' + prefix);
+    let botAliveInterval = setInterval(keepBotAlive(client),1000*60*20) //20mins
 });
 // client.wa.ping
 //read the msg and determine wethere to send msg or not...
@@ -65,5 +66,7 @@ client.on('message', (msg) => {
         }
     }
 });
-module.exports = { client }
+function keepBotAlive(client) {
+    client.channels.cache.get('865083859523993610').send(new Discord.MessageEmbed().setColor('#0099ff').setTitle(`keeping myself alive!`).setTimestamp())
+}
 //eof // // // // // /// /// /// /// /// / /// /// /// / /// / // / // /made my techy504#2069 and Syrena
