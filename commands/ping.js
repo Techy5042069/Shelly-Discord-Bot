@@ -14,7 +14,7 @@ async function getfunc(msg, args, MsgEmbed, prefix, obj) {
     //console.log(obj.client)
     let m = await msg.channel.send('pinging....')
     MsgEmbed.setColor('#0099ff')
-        .setDescription(`**This bot ping is : **\${Math.round(obj.client.ws.ping)}ms\ \n **your ping is: ** ${m.createdTimestamp - msg.createdTimestamp}ms`)
+        .setDescription(`**This bot ping is : **\ ${Math.round(obj.client.ws.ping)}ms\ \n **your ping is: ** ${m.createdTimestamp - msg.createdTimestamp}ms`)
     m.edit(MsgEmbed)
     return console.log('processed!')
 }
