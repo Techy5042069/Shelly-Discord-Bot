@@ -1,6 +1,6 @@
 {
     "prefix" : "%",
-    "cooldown": "25",
+    "cooldown": "10",
     "exceptionRole": "KOexception",
     "probfile": "./data/prob.json"
 }
