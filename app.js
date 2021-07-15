@@ -9,7 +9,8 @@ const { DiscordTogether } = require('discord-together');
 
 //
 //
-const { prefix, token, cooldown, exceptionRole, probfile } = config;
+const token = process.env.token;
+const { prefix, cooldown, exceptionRole, probfile } = config;
 //exception role = use bot without cool downs
 console.log(prefix + ' go go!');
 client.login(token);
