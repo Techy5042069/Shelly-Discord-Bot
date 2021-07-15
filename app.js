@@ -6,10 +6,11 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const talkedRecently = new Set();
 const { DiscordTogether } = require('discord-together');
-
+// const dotenv = require('dotenv')
+require('dotenv').config();
 //
 //
-const token = process.env.token;
+const token = process.env.TOKEN;
 const { prefix, cooldown, exceptionRole, probfile } = config;
 //exception role = use bot without cool downs
 console.log(prefix + ' go go!');
