@@ -1,5 +1,6 @@
 {
     "prefix" : "%",
+    "token" : "bot_token",
     "cooldown": "25",
     "exceptionRole": "KOexception",
     "probfile": "./data/prob.json"
