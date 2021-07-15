@@ -1,15 +1,16 @@
+const fs = require('fs');
+
 module.exports = {
     cmdname: 'prob',
-    exec(msg, args,obj) {
-        return getfunc(msg, args,obj);
+    exec(msg, args, obj) {
+        return getfunc(msg, args, obj);
     },
 };
-const fs = require('fs');
-probFileLocation = './data/prob.json'
-let probFileObj = JSON.parse(fs.readFileSync(probFileLocation))
-let keys = Object.keys(probFileObj)
 
-function getfunc(msg, args,obj) {
+function getfunc(msg, args, obj) {
+    probFileLocation = obj.config.probfile;
+    let probFileObj = JSON.parse(fs.readFileSync(probFileLocation))
+    let keys = Object.keys(probFileObj)
 
     let msgEmbed = obj.msgEmbed.setColor('#0099ff')
         .setTitle('Probabiliites:')

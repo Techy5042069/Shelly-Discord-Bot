@@ -1,7 +1,7 @@
 module.exports = {
     cmdname: 'help',
-    exec(msg, args,obj) {
-        return getfunc(msg, args,obj);
+    exec(msg, args, obj) {
+        return getfunc(msg, args, obj);
     },
 };
 
@@ -27,10 +27,14 @@ function getfunc(msg, args, obj) {
             value: `usage: ${prefix}prob, shows what crates are available and their rates`,
             // inline: true
         }, {
-            name: "**2gether**",
-            value: `usage: ${prefix}2gether, watch and play things together`,
+            name: "**gether**",
+            value: `usage: ${prefix}gether, watch and play things together`,
             // inline: true
-        } ,{
+        }, {
+            name: "**Reedem**",
+            value: `usage: ${prefix}reedem , used to reedem keys for crate`,
+            // inline: true
+        }, {
             name: "**Creator**",
             value: `usage: ${prefix}kreator, shows creator`,
             // inline: true

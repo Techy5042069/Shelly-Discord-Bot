@@ -2,5 +2,7 @@
     "prefix" : "%",
     "cooldown": "10",
     "exceptionRole": "KOexception",
-    "probfile": "./data/prob.json"
+    "probfile": "./data/prob.json",
+    "reedemfile": "./data/reedemkey.json",
+    "invdir": "./data/invs/"
 }

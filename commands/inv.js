@@ -17,7 +17,7 @@ function getfunc(msg, args, obj) {
         nameOfFile = `${msg.author.id}.json`
         roleMention = msg.author.id
     }
-    let probFileObj = JSON.parse(fs.readFileSync(obj.probFileLocation))
+    let probFileObj = JSON.parse(fs.readFileSync(obj.config.probfile))
     if (fs.existsSync('./data/invs/' + nameOfFile)) {
         let workingFile = JSON.parse(
             fs.readFileSync('./data/invs/' + nameOfFile)

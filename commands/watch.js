@@ -12,7 +12,7 @@ function getfunc(msg, args, obj) {
     togetherType = '';
     prefix = obj.prefix;
     msgEmbed = obj.msgEmbed;
-    msgEmbed.setColor('#0099ff').setTitle('**2gether command**').setDescription(`**please use the following syntax:**: ${prefix}2gether [${mod.join(',')}]`)
+    msgEmbed.setColor('#0099ff').setTitle('**gether command**').setDescription(`**please use the following syntax:**: \n ${prefix}2gether [${mod.join(',')}]`)
     if (msg.member.voice.channel) {
         // console.log(prefix, msgEmbed, args[0])
         if (args[0]) {
