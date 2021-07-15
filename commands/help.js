@@ -27,6 +27,10 @@ function getfunc(msg, args, obj) {
             value: `usage: ${prefix}prob, shows what crates are available and their rates`,
             // inline: true
         }, {
+            name: "**2gether**",
+            value: `usage: ${prefix}2gether, watch and play things together`,
+            // inline: true
+        } ,{
             name: "**Creator**",
             value: `usage: ${prefix}kreator, shows creator`,
             // inline: true
