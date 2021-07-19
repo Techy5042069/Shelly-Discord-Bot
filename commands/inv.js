@@ -108,5 +108,7 @@ function createUserData(crateName, obj) {
         if (obj.config.enableUserMetaData) data['x' + crateName[i]] = 10 //every key inside a box/crate name that starts with 'x' is the meta data , i.e. the total amount of the respective box that the person had
     }
     //after the for loop you could add custom key:values too
+    data.invites = 0
+    data.xinvites = 0
     return data
 }

@@ -9,6 +9,8 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const talkedRecently = new Set();
 // const dbURI = `mongodb+srv://${process.env.DBID}:${process.env.DBPASS}@cluster0.uab70.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+const invites = {};
+const wait = require('util').promisify(setTimeout);
 
 const { prefix, cooldownTime, exceptionRole } = config; //Exception role = use bot without cool downs
 
@@ -28,12 +30,20 @@ client.discordTogether = new DiscordTogether(client); //NPM module : discord-tog
 
 client.on('ready', () => {
     console.log('Ready to begin! with prefix: ' + prefix);
+
+    client.guilds.cache.forEach(g => {
+        g.fetchInvites().then(guildInvites => {
+            invites[g.id] = guildInvites;
+        });
+    });
+
     if (config.botActivity) {
         botAliveInterval = setInterval(() => keepBotAlive(client), 1000 * 60 * 20) //20mins
     }
     //This is for hosting bot in heroku , it sends out a message to a specific channel at certain interval and stops from being turned off
     //If you are going to host this bot somewhere , you can remove this code
 });
+
 
 // @parm {Discord.Message} message
 client.on('message', async (message) => {
@@ -74,4 +84,24 @@ function addToTalkedRecently(ID, cooldownTime) {
     talkedRecently.add(ID)
     setTimeout(_ => talkedRecently.delete(ID), parseInt(cooldownTime) * 1000)
 }
+
+
+client.on('guildMemberAdd', member => {
+    // To compare, we need to load the current invite list.
+    member.guild.fetchInvites().then(guildInvites => {
+        const ei = invites[member.guild.id];
+        invites[member.guild.id] = guildInvites; //save up the new invites
+        const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
+        const inviter = client.users.cache.get(invite.inviter.id);
+        const logChannel = member.guild.channels.cache.find(channel => channel.name === "general");
+        let userInventoryFile = JSON.parse(fs.readdirSync(config.invdir + inviter.id))//.invites
+        userInventoryFile.invites += invite.uses - ei.get(invite.code).uses
+        
+        fs.writeFileSync(config.invdir + inviter.id , JSON.stringify(userInventoryFile,null,2))
+        logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation. And ${inviter.tag} now has ${userInventoryFile}`);
+    });
+});
+
+//add prevention for duplicated people 
+//add time waiting
 //eof // // // // // /// /// /// /// /// / /// /// /// / /// / // / // /made my techy504#2069 and Syrena

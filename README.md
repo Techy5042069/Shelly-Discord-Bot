@@ -38,23 +38,24 @@ Run each instance for each server (each bot for each server), currently it's sin
 4. adding rewards :
  - head over to `./data/rewards/`
  - create a new file , say `gitcards.txt` and add you cards (one reward / code at a line)
- 	`giftcards.txt` : somegiftcardcode1
- 					somegiftcardcode2
- 					somegiftcardcode3
- - head over to use.js on ./commands/ , change the probability object as you like: 
+ 	`giftcards.txt` : somegiftcardcode1 \n somegiftcardcode2 \n somegiftcardcode3
+ - head over to use.js on `./commands/` , change the probability object as you like but keep the format: 
 	
 	```JS
 	probability = {
 			normal: {
-				prob: [50],
-				rewards: ['giftcard;1'],
+				prob: [50,50],
+				rewards: ['giftcard;1','giftcard;2'],
+			},
+			god : {
+				prob: [50,50]
+				rewards: ['giftcard;3','gifcard;5']
 			}
 		}
 	```
 		
-	here, `normal` is the box/crate/key name (this should correspond what user are gonna use to open the box/crate) (default : `%use normal`)
-	then `prob` and `rewards` must have same structure . (prob refers to probability ) .` prob[]` is probability array , `rewards []`  refers to reward for the corresponding probability. here in this case , it is read as, 
+	here, `normal` and `god` is the box/crate/key name (this should correspond what user are gonna use to open the box/crate) (default : `%use normal`) then `prob` and `rewards` must have same structure . (prob refers to probability ) .` prob[]` is probability array , `rewards []`  refers to reward for the corresponding probability. here in this case , it is read as, 
 
 			> the probability of getting 1 giftcard (from `giftcard.txt`) while opening a normal box is 50%
 
-	As mentioned , keep the structure as : `name_of_file;number_of_reward` and there must be a txt file with same `name_of_file` on `./data/rewards/name_of_file.txt` else the program will break
+	As mentioned , keep the structure as : `'name_of_file;number_of_reward'` and there must be a txt file with same `name_of_file` on `./data/rewards/name_of_file.txt` else the program will break
