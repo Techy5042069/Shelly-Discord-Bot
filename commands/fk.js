@@ -18,6 +18,6 @@ async function getfunc(msg, args) {
                 if (err) {
                     console.log(err);
                 }
-            });
+        });
     }
 }
