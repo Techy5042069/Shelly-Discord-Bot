@@ -52,8 +52,8 @@ Run each instance for each server (each bot for each server), currently it's sin
 		}
 	```
 		
-		here, `normal` is the box/crate/key name (this should correspond what user are gonna use to open the box/crate) (default : `%use normal`)
-		then `prob` and `rewards` must have same structure . (prob refers to probability ) .` prob[]` is probability array , `rewards []`  refers to reward for the corresponding probability. here in this case , it is read as, 
+	here, `normal` is the box/crate/key name (this should correspond what user are gonna use to open the box/crate) (default : `%use normal`)
+	then `prob` and `rewards` must have same structure . (prob refers to probability ) .` prob[]` is probability array , `rewards []`  refers to reward for the corresponding probability. here in this case , it is read as, 
 
 			> the probability of getting 1 giftcard (from `giftcard.txt`) while opening a normal box is 50%
 
