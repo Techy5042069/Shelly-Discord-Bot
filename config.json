@@ -7,6 +7,6 @@
     "invdir": "./data/invs/",
     "botActivityChannel" :"865083859523993610",
     "enableUserMetaData" : "true",
-    "rewardsDir" : "./data/accs/".
+    "rewardsDir" : "./data/accs/",
     "channelDeleteTime" : "1"
 }
