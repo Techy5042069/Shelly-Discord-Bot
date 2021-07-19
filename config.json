@@ -3,7 +3,10 @@
     "cooldownTime": "10",
     "exceptionRole": "KOexception",
     "probfile": "./data/prob.json",
-    "reedemfile": "./data/reedemkey.json",
+    "reedemFileLocation": "./data/reedemkey.json",
     "invdir": "./data/invs/",
-    "botActivityChannel" :"865083859523993610"
+    "botActivityChannel" :"865083859523993610",
+    "enableUserMetaData" : "true",
+    "rewardsDir" : "./data/accs/".
+    "channelDeleteTime" : "1"
 }

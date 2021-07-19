@@ -1,13 +1,22 @@
+let constMsgEmbed
 module.exports = {
     cmdname: 'help',
     exec(msg, args, obj) {
+        setHelpEmbed(obj.msgEmbed,obj.prefix)
         return getfunc(msg, args, obj);
     },
 };
 
-function getfunc(msg, args, obj) {
-    prefix = obj.prefix;
-    obj.msgEmbed.setColor('#0099ff')
+async function getfunc(msg, args, obj) {
+    if (constMsgEmbed) {
+        await msg.reply(constMsgEmbed)
+        return console.log('processed')
+    }
+    await msg.reply(setHelpEmbed(obj.msgEmbed,obj.prefix));
+    return console.log("processed!")
+}
+function setHelpEmbed (objMsgEmbed,prefix) { //this fuction only run once , to make the help msg embed
+    constMsgEmbed =  objMsgEmbed.setColor('#0099ff')
         .setTitle('Help:')
         .setDescription('Here are some commands currently available:')
         .addFields({
@@ -39,6 +48,8 @@ function getfunc(msg, args, obj) {
             value: `usage: ${prefix}kreator, shows creator`,
             // inline: true
         })
-    msg.reply(obj.msgEmbed);
-    return console.log("processed!")
+        return constMsgEmbed
+    // return msgEmbed
 }
+
+// %reedem add <code> <crate> <num>

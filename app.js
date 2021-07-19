@@ -4,79 +4,72 @@ const config = require('./config.json');
 const Discord = require('discord.js');
 const { DiscordTogether } = require('discord-together');
 require('dotenv').config();
+// const Mongoose = require('mongoose')
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 const talkedRecently = new Set();
+// const dbURI = `mongodb+srv://${process.env.DBID}:${process.env.DBPASS}@cluster0.uab70.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
-
-const { prefix, cooldown, exceptionRole } = config; //exception role = use bot without cool downs
-
+const { prefix, cooldownTime, exceptionRole } = config; //Exception role = use bot without cool downs
 
 const token = process.env.TOKEN;
 client.login(token);
 console.log(prefix + ' go go!');
-
 
 const commandFiles = fs.readdirSync('./commands').filter((file) => {
     file.endsWith('.js');
     const command = require(`./commands/${file}`);
     client.commands.set(command.cmdname, command);
 });
-//load up [cmds].js
+//Load up [cmds].js
 
 
-
-client.discordTogether = new DiscordTogether(client); //npm module : discord-together
-
+client.discordTogether = new DiscordTogether(client); //NPM module : discord-together
 
 client.on('ready', () => {
     console.log('Ready to begin! with prefix: ' + prefix);
     let botAliveInterval = setInterval(() => keepBotAlive(client), 1000 * 60 * 20)
-    //this is for hosting bot in heroku , it sends out a msg to a specific channel at certain interval and stops from being turned off
-    //if you are going to host this bot somewhere , you can remove this code
+    //This is for hosting bot in heroku , it sends out a message to a specific channel at certain interval and stops from being turned off
+    //If you are going to host this bot somewhere , you can remove this code
 });
 
+// @parm {Discord.Message} message
+client.on('message', async (message) => {
+    if (!message.content.startsWith(prefix) || message.author.bot || message.guild == null) return;
 
-client.on('message', (msg) => {
+    let hasUsedCmdrecently = talkedRecently.has(message.author.id)
+    let hasExceptionRole = await message.member.roles.cache.find(role => role.name == exceptionRole)
+    if (hasUsedCmdrecently && !hasExceptionRole) return await message.reply(`Wait ${cooldownTime} seconds before , using commands again. - ${message.author}`)
 
-    if (!msg.content.startsWith(prefix) || msg.author.bot || msg.guild == null) return;
-    //immediately exit checking if the message doesn't start with prefix and the usesr is bot
+    if (!hasUsedCmdrecently || hasExceptionRole) {
+        addToTalkedRecently(message.author.id, cooldownTime)
+        const args = message.content.slice(prefix.length).trim().toLowerCase().split(/ +/);
+        const primaryCommand = args.shift().toLowerCase();
 
-    if (talkedRecently.has(msg.author.id) && !msg.member.roles.cache.find(role => role.name === exceptionRole)) {
-        msg.channel.send(`Wait ${cooldown} seconds before , using commands again. - ${msg.author}`);
-    } else {
-        // Adds the user to the set so that they can't talk for 'cooldown' time
-        talkedRecently.add(msg.author.id);
-        setTimeout(() => {
-            // Removes the user from the set after a minute
-            talkedRecently.delete(msg.author.id);
-        }, parseInt(cooldown) * 1000); //currently 25s
-
-
-        const args = msg.content.slice(prefix.length).trim().toLowerCase().split(/ +/); //stores message (prefix removed) , in an array separated by " "
-
- 
-        const command = args.shift().toLowerCase(); // varriable for main command
-        if (!client.commands.has(command)) return; //exit immediatedly if the message doesn't have a valid command
- 
-
-        //run respective command's function
+        if (!client.commands.has(primaryCommand)) return; //Exit immediatedly if the message doesn't have a valid command
+        //Run respective command's function
         try {
-            console.log('command_executing.. : ' + command);
-            client.commands.get(command).exec(msg, args, {
+            obj = {
                 msgEmbed: new Discord.MessageEmbed(),
                 prefix: prefix,
                 client: client,
                 config: config
-            }); //sending a obj instead , will be easier if you want sub-file to access unique information
+            }
+            console.log('command_executing.. : ' + primaryCommand);
+            client.commands.get(primaryCommand).exec(message, args, obj); //Sending a obj instead , will be easier if you want sub-file to access unique information
         } catch (error) {
             console.error(error);
-            msg.reply('cmd file not found : ' + command + ' please contact developer or admin');
+            await message.reply('cmd file not found : ' + primaryCommand + ' please contact developer or admin');
         }
     }
 });
 
 function keepBotAlive(client) {
-    client.channels.cache.get('865083859523993610').send(new Discord.MessageEmbed().setColor('#0099ff').setTitle(`$T@Y!N @l!VE`).setTimestamp())
-} //kepping the bot alive from going down
+    client.channels.cache.get(config.botActivityChannel).send(new Discord.MessageEmbed().setColor('#0099ff').setTitle(`$T@Y!N @l!VE`).setTimestamp())
+} //Kepping the bot alive from going down
+
+function addToTalkedRecently(ID, cooldownTime) {
+    talkedRecently.add(ID)
+    setTimeout(_ => talkedRecently.delete(ID), parseInt(cooldownTime) * 1000)
+}
 //eof // // // // // /// /// /// /// /// / /// /// /// / /// / // / // /made my techy504#2069 and Syrena

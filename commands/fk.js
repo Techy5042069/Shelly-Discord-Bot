@@ -5,11 +5,11 @@ module.exports = {
     }
 };
 
-function getfunc(msg, args) {
+async function getfunc(msg, args) {
     channel = msg.channel;
-    msg.delete()
+    await msg.delete()
     for (let i = 1; i < 25; i++) {
-        channel
+        await channel
             .send(`<@771954313672261652>`)
             .then((msg) => {
                 setTimeout(() => msg.delete(), 1000);
