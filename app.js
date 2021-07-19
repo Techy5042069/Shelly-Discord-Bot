@@ -28,7 +28,9 @@ client.discordTogether = new DiscordTogether(client); //NPM module : discord-tog
 
 client.on('ready', () => {
     console.log('Ready to begin! with prefix: ' + prefix);
-    let botAliveInterval = setInterval(() => keepBotAlive(client), 1000 * 60 * 20)
+    if (config.botActivity) {
+        botAliveInterval = setInterval(() => keepBotAlive(client), 1000 * 60 * 20) //20mins
+    }
     //This is for hosting bot in heroku , it sends out a message to a specific channel at certain interval and stops from being turned off
     //If you are going to host this bot somewhere , you can remove this code
 });

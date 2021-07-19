@@ -2,11 +2,12 @@
     "prefix" : "%",
     "cooldownTime": "10",
     "exceptionRole": "KOexception",
+    "botActivityChannel" :"865083859523993610",
+    "botActivity" : "true",
+    "enableUserMetaData" : "true",
+    "channelDeleteTime" : "10",
     "probfile": "./data/prob.json",
     "reedemFileLocation": "./data/reedemkey.json",
     "invdir": "./data/invs/",
-    "botActivityChannel" :"865083859523993610",
-    "enableUserMetaData" : "true",
-    "rewardsDir" : "./data/accs/",
-    "channelDeleteTime" : "1"
+    "rewardsDir" : "./data/rewards/"
 }

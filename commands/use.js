@@ -61,7 +61,7 @@ async function getfunc(msg, args, obj) {
         await msg.reply(msgEmbed);
         return;
     }
-    
+
 
     let crate = Object.keys(probabilty) //add if you want more crate , but may requier code restructuing
     for (let i = 0; i < crate.length; i++) {
@@ -135,13 +135,13 @@ function finalizeProcess(msg, num, crateName, obj) { //do the final stuffs
     // if true , it takes the index of probability and gets rewards from rewards[indexOfProbability]
     //then makes embed and sends it to the peron
     //if person has a blocked dm or the bot can't dm the person , then a new channel is created and the msg is sent over there which is delete after X minutes
+    const embedPicture = 'https://media.discordapp.net/attachments/862943946924621825/864148596639531048/standard_6.gif?width=230&height=230'
+    const randomizer = Math.floor(Math.random() * Math.random() * 10000) / 100;
+    const channelDeleteTime = obj.config.channelDeleteTime * 60 * 1000 //value in mimisecond
     let returnVal = num
-    let embedPicture = 'https://media.discordapp.net/attachments/862943946924621825/864148596639531048/standard_6.gif?width=230&height=230'
     let kombo = '';
-    let randomizer = Math.floor(Math.random() * Math.random() * 10000) / 100;
     let luckyIndex; //index of the reward
     let calculatedVar //probability of the reward won
-    let channelDeleteTime = obj.config.channelDeleteTime * 60 * 1000 //value in mimisecond
     try {
 
         prob = probabilty[crateName].prob.length - 1; //checks amount of reward in the choosen crate
@@ -155,6 +155,12 @@ function finalizeProcess(msg, num, crateName, obj) { //do the final stuffs
                 break;
             }
             cumulative = nextCumulative
+        }
+        console.log(luckyIndex)
+        if (!luckyIndex) {
+            msg.reply('some error occured, please try again')
+            returnVal += 1
+            return returnVal
         }
 
         rew = probabilty[crateName].rewards[luckyIndex]; //getting the reward element as a group like 'NFA;1'
