@@ -7,21 +7,6 @@ module.exports = {
     }
 };
 
-// let probabilty = {
-//     normie: {
-//         prob: ['0-60', '60-72', '72-97', '97-99', '99-100'], //probabilty of reward in range, 
-//         rewards: ['NFA;1', 'SFA;1', 'napster;1', 'UNFA;1', 'USFA;1'] //it's like 0-90 corresponds to 'NFA;1' and 99-100 corresponds to 'SFA;1'
-//     },
-//     mid: {
-//         prob: ['0-38', '38-53', '53-80', '80-89', '89-93', '93-96', '96-98', '98-99', '99-100'],
-//         rewards: ['NFA;2', 'SFA;2', 'napster;5', 'crunchyroll;1', 'UNFA;2', 'USFA;1', 'hypixelRankedNFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1']
-//     },
-//     kord: {
-//         prob: ['0-26', '26-40', '40-55', '55-65', '65-74', '74-83', '83-89', '89-95', '95-100'],
-//         rewards: ['NFA;5', 'SFA;4', 'UNFA;3', 'USFA;2', 'hypixelRankedNFA;1', 'hypixelLeveledNFA;1', 'hypixelRankedSFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1']
-
-//     }
-// };
 let probabilty = {
     normie: {
         prob: [60, 12, 20, 2, 1], //probabilty of reward in percentage, put respective prob and rewards like 12% corresponds to 'SFA;1' 
