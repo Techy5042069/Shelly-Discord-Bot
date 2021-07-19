@@ -61,6 +61,7 @@ async function getfunc(msg, args, obj) {
         await msg.reply(msgEmbed);
         return;
     }
+    
 
     let crate = Object.keys(probabilty) //add if you want more crate , but may requier code restructuing
     for (let i = 0; i < crate.length; i++) {
