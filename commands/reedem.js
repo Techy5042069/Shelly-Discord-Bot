@@ -17,14 +17,6 @@ async function getfunc(msg, args, obj) {
     let reedemFile = JSON.parse(fs.readFileSync(reedemFileLocation))
     let reedemKeys = Object.keys(reedemFile)
     let hasValidArg = false;
-
-    // if (args[0] == 'add' && msg.member.hasPermission('ADMINISTRATOR') && args[1] && args[2] && args[3]) { //%reedem add <key> <cratename> <amount of keys>
-    //     let newReedemRewards = await addReedemCode(msg, args, obj);
-    //     if (!newReedemRewards) { return; } //exit immeditely if the argument is wrong
-    //     newReedemCode = args[1]
-    //     reedemFile[newReedemCode] = newReedemRewards;
-    //     hasValidArg = true;
-    // } else
     if (args[0]) {
         for (key of reedemKeys) {
             if (args[0] == key) {
@@ -68,32 +60,3 @@ function loadKeysToAcc(msg, key, obj, reedemFile) {
     })
     return;
 }
-
-// function addReedemCode(msg, args, obj) {
-//     return new Promise((resolve, reject) => {
-//         probFileLocation = obj.config.probfile;
-//         let probFileObj = JSON.parse(fs.readFileSync(probFileLocation))
-//         let keys = Object.keys(probFileObj)
-//         if (args[3] > 100) {
-
-//         }
-//         if (keys.includes(args[2])) {
-//             msg.reply('Reedem code added and is sent to you in DM')
-//             msgEmbed = obj.msgEmbed;
-//             msg.author.send(msgEmbed.setColor('#0099ff').setTitle('here is the information of the key that you added').addFields({
-//                 name: 'Reedem Code',
-//                 value: args[1]
-//             }, {
-//                 name: 'crate',
-//                 value: args[2]
-//             }, {
-//                 name: 'no of keys',
-//                 value: args[3]
-//             }))
-
-//             resolve(`${args[2]};${args[3]}`);
-//         } else {
-//             reject(msg.reply('wrong crate name , please use a valid crate name do: %prob to see all available crates'))
-//         }
-//     })
-// }

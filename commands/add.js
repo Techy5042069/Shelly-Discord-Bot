@@ -4,16 +4,22 @@ module.exports = {
     cmdname: 'add',
     exec(msg, args, obj) {
         getfunc(msg, args, obj);
-        console.log('processed!')
     }
 };
 
 function getfunc(msg, args, obj) {
-
     if (!msg.member.hasPermission('ADMINISTRATOR')) return
-    if (args[0] = 'reedem') return getCreateReedemCode(msg, args, obj)
+    console.log(args)
+    if (args[0] = 'reedem') {
+        getCreateReedemCode(msg, args, obj)
+        return
+    } else { // if (args[0] = 'a') 
+        console.log('ola')
+        addInvites(msg, args, obj)
+        return 
+    }
 }
-
+//%add reedem <box/crate> <num of keys> <code>
 function addReedemCode(msg, args, obj) {
     return new Promise((resolve, reject) => {
         maxKeys = 50
@@ -57,3 +63,44 @@ async function getCreateReedemCode(msg, args, obj) {
         fs.writeFileSync(reedemFileLocation, JSON.stringify(reedemFile, null, 2))
     }
 }
+
+//-----------------------------------------------------------------------------------
+//%add invites <usermention/id> <invites amt>
+
+function addInvites(msg, args, obj) {
+    console.log('hello')
+    if (!Number.isInteger(args[1])) return msg.reply(`Fk, that's not a real number`)
+    userSnowFlake = getTragetUser(msg, args[0])
+    userFileLocation = obj.config.invdir + userSnowFlake + '.json'
+    userInventoryFile = JSON.parse(fs.readFileSync(userFileLocation))
+    userInventoryFile.invites += args[1]
+    userInventoryFile.xinvites += args[1]
+    console.log(args, userSnowFlake, userFileLocation)
+    fs.writeFileSync(userFileLocation, JSON.stringify(userInventoryFile, null, 2))
+}
+
+
+function getTragetUser(msg, mention) {
+    if (!mention || mention.length != 18 || !Number.isInteger(mention)) return msg.author.id;
+
+    if (mention.startsWith('<@') && mention.endsWith('>')) {
+        mention = mention.slice(2, -1);
+
+        if (mention.startsWith('!')) {
+            mention = mention.slice(1);
+        }
+        return mention;
+    } else if (mention.length = 18) { //18 is the length of snowflake
+        return mention
+    }
+}
+
+// async function getTragetUser(msg, mention) {
+//     if (canUseConv) {
+//         mentionedPerson = await getUserFromMention(mention, msg);
+//     } else {
+//         mentionedPerson = msg.author.id
+//     }
+//     // console.log(roleMention, nameOfFile)
+//     return mentionedPerson //Check config.json for invdir
+// }

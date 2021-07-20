@@ -20,10 +20,8 @@ async function getfunc(msg, args, obj) {
 
     let mentionedPerson = await getTragetUser(msg, mentioned)
     userFileLocation = obj.config.invdir + mentionedPerson + '.json'
-    // console.log(userFileLocation)
     if (!fs.existsSync(userFileLocation)) return msg.reply(`You don't have an entry , do ${obj.prefix}inv then try again!`)
     confirmConvert(msg, crateName, invitesToBeConverted, userFileLocation, obj, probabilityFile[crateName].invitesForAKey)
-    // convertInvitesToKeys(msg, crateName, invitesToBeConverted, userFileLocation, obj, probabilityFile.invitesForAKey)
 }
 
 

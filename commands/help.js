@@ -52,4 +52,4 @@ function setHelpEmbed (objMsgEmbed,prefix) { //this fuction only run once , to m
     // return msgEmbed
 }
 
-// %reedem add <code> <crate> <num>
+// %add reedem <crate> <num> <code> 
