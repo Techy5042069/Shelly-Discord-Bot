@@ -96,9 +96,8 @@ client.on('guildMemberAdd', member => {
         const logChannel = member.guild.channels.cache.find(channel => channel.name === "general");
         let userInventoryFile = JSON.parse(fs.readdirSync(config.invdir + inviter.id))//.invites
         userInventoryFile.invites += invite.uses - ei.get(invite.code).uses
-        
         fs.writeFileSync(config.invdir + inviter.id , JSON.stringify(userInventoryFile,null,2))
-        logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation. And ${inviter.tag} now has ${userInventoryFile}`);
+        logChannel.send(`${member.user.tag} joined using invite code ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation. And ${inviter.author} now has ${userInventoryFile}`);
     });
 });
 
