@@ -12,15 +12,14 @@ async function getfunc(msg, args, obj) {
     let returnedArray = await getTragetUser(msg, args, obj)
     roleMention = returnedArray[0]
     userFileLocation = obj.config.invdir + returnedArray[1]
-    
+
     const probabilityFile = await JSON.parse(fs.readFileSync(obj.config.probfile)) //probability json file, 
     crateName = Object.keys(probabilityFile) //using probability file because it has all the crate/box info
-
+    if (msg.member.hasPermission('ADMINISTRATOR')) args[0] = 'full' //enable full inventory preview if the user is an admin
     if (fs.existsSync(userFileLocation)) {
         msgEmbed = await getDefaultMsg(userFileLocation, obj.msgEmbed, roleMention, msg, args, crateName)
         msg.channel.send(msgEmbed)
     } else {
-
         createUserFile(userFileLocation, crateName, obj, msg);
     }
     return console.log("processed!")
@@ -49,7 +48,7 @@ async function getTragetUser(msg, args) {
         roleMention = msg.author.id
         nameOfFile = `${msg.author.id}.json`
     }
-    console.log(roleMention, nameOfFile)
+    // console.log(roleMention, nameOfFile)
     return [roleMention, nameOfFile] //Check config.json for invdir
 }
 
@@ -71,6 +70,12 @@ async function getDefaultMsg(userFileLocation, msgEmbed, roleMention, msg, args,
         })
     }
 
+    msgEmbed.addFields({
+        name: `**Invites:**`,
+        value: workingFile.invites,
+        inline: false
+    })
+
     if (args[0] == 'full') { //[prefix]inv full
         for (let i = 0; i < crateName.length; i++) {
             msgEmbed.addFields({
@@ -79,6 +84,12 @@ async function getDefaultMsg(userFileLocation, msgEmbed, roleMention, msg, args,
                 inline: true
             })
         }
+        msgEmbed.addFields({
+            name: `**total Invites:**`,
+            value: workingFile.xinvites,
+            inline: false
+        })
+
     }
     return msgEmbed;
 }

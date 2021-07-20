@@ -10,16 +10,18 @@ module.exports = {
 let probabilty = {
     normie: {
         prob: [60, 12, 20, 2, 1], //probabilty of reward in percentage, put respective prob and rewards like 12% corresponds to 'SFA;1' 
-        rewards: ['NFA;1', 'SFA;1', 'napster;1', 'UNFA;1', 'USFA;1']
+        rewards: ['NFA;1', 'SFA;1', 'napster;1', 'UNFA;1', 'USFA;1'],
+        invitesForAKey: 2
     },
     mid: {
         prob: [38, 15, 27, 9, 4, 3, 2, 1, 1],
-        rewards: ['NFA;2', 'SFA;2', 'napster;5', 'crunchyroll;1', 'UNFA;2', 'USFA;1', 'hypixelRankedNFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1']
+        rewards: ['NFA;2', 'SFA;2', 'napster;5', 'crunchyroll;1', 'UNFA;2', 'USFA;1', 'hypixelRankedNFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1'],
+        invitesForAKey: 10
     },
     kord: {
         prob: [26, 14, 15, 10, 9, 9, 6, 6, 5],
-        rewards: ['NFA;5', 'SFA;4', 'UNFA;3', 'USFA;2', 'hypixelRankedNFA;1', 'hypixelLeveledNFA;1', 'hypixelRankedSFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1']
-
+        rewards: ['NFA;5', 'SFA;4', 'UNFA;3', 'USFA;2', 'hypixelRankedNFA;1', 'hypixelLeveledNFA;1', 'hypixelRankedSFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1'],
+        invitesForAKey: 25
     }
 }
 

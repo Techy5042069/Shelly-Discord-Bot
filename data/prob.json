@@ -13,7 +13,8 @@
       "napster;1",
       "UNFA;1",
       "USFA;1"
-    ]
+    ],
+    "invitesForAKey": 2
   },
   "mid": {
     "prob": [
@@ -37,7 +38,8 @@
       "hypixelRankedNFA;1",
       "hypixelLeveledSFA;1",
       "OFNFA;1"
-    ]
+    ],
+    "invitesForAKey": 10
   },
   "kord": {
     "prob": [
@@ -61,6 +63,7 @@
       "hypixelRankedSFA;1",
       "hypixelLeveledSFA;1",
       "OFNFA;1"
-    ]
+    ],
+    "invitesForAKey": 25
   }
 }

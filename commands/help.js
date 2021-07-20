@@ -33,7 +33,7 @@ function setHelpEmbed (objMsgEmbed,prefix) { //this fuction only run once , to m
             // inline: true
         }, {
             name: "**PROBABILITY**",
-            value: `usage: ${prefix}prob, shows what crates are available and their rates`,
+            value: `usage: ${prefix}info, shows what crates are available and their rates`,
             // inline: true
         }, {
             name: "**gether**",
