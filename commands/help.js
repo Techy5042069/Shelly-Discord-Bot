@@ -1,8 +1,42 @@
 let constMsgEmbed
+helps = {
+    Use: {
+        short: `use\``,
+        full: `use [crateName]\`, shows what you have in your inventory`
+    },
+    Inventory: {
+        short: `inv\``,
+        full: `inv\`, shows what you have in your inventory \n inv full , shows full information`
+    },
+    Information: {
+        short: `info\``,
+        full: `info\`, shows what crates are available and their probability and Invites to Key rates`
+    },
+    Gether: {
+        short: `gether\``,
+        full: `gether [options]\` , watch/play games together`
+    },
+    Reedem: {
+        short: `reedem\``,
+        full: `reedem [reedem code]\` , used to reedem keys for crate`
+    },
+    Ping: {
+        short: `ping\``,
+        full: `ping\` , shows Bot and Your ping`
+    },
+    Help: {
+        short: `help\``,
+        full: `help\` , LMAO , shows help`
+    },
+    Kreator: {
+        short: `kreator\``,
+        full: `kreator\`, shows creator`
+    }
+}
+
 module.exports = {
     cmdname: 'help',
     exec(msg, args, obj) {
-        setHelpEmbed(obj.msgEmbed,obj.prefix)
         return getfunc(msg, args, obj);
     },
 };
@@ -12,44 +46,26 @@ async function getfunc(msg, args, obj) {
         await msg.reply(constMsgEmbed)
         return console.log('processed')
     }
-    await msg.reply(setHelpEmbed(obj.msgEmbed,obj.prefix));
+    if (args[0]) return sendFullCmdhelp(msg, args, obj)
+    setGetDefaultHelp(obj.msgEmbed, obj.prefix, msg)
     return console.log("processed!")
 }
-function setHelpEmbed (objMsgEmbed,prefix) { //this fuction only run once , to make the help msg embed
-    constMsgEmbed =  objMsgEmbed.setColor('#0099ff')
+
+function setGetDefaultHelp(objMsgEmbed, prefix, msg) {
+    //this function will only run once to construct the helps object
+    constMsgEmbed = objMsgEmbed.setColor('#0099ff')
         .setTitle('Help:')
-        .setDescription('Here are some commands currently available:')
-        .addFields({
-            name: "PREFIX",
-            value: 'current prefix: ' + prefix,
-            // inline: true
-        }, {
-            name: "**INVENTORY**",
-            value: `usage: ${prefix}inv, shows what you have in your inventory \n ${prefix}inv full , shows full information`,
-            // inline: true
-        }, {
-            name: "**USE**",
-            value: `usage: ${prefix}use [keyname], to use up a key and open the respective crate`,
-            // inline: true
-        }, {
-            name: "**PROBABILITY**",
-            value: `usage: ${prefix}info, shows what crates are available and their rates`,
-            // inline: true
-        }, {
-            name: "**gether**",
-            value: `usage: ${prefix}gether, watch and play things together`,
-            // inline: true
-        }, {
-            name: "**Reedem**",
-            value: `usage: ${prefix}reedem , used to reedem keys for crate`,
-            // inline: true
-        }, {
-            name: "**Creator**",
-            value: `usage: ${prefix}kreator, shows creator`,
-            // inline: true
+        .setDescription(`Here are some commands currently available: \n do ${prefix}help [cmdname] to view more information on that command`);
+    for (help in helps) {
+        constMsgEmbed.addFields({
+            name: `${help}`,
+            value: `\`${prefix}${helps[help].short}`,
+            inline: true
         })
-        return constMsgEmbed
-    // return msgEmbed
+    }
+    msg.reply(constMsgEmbed)
 }
 
-// %add reedem <crate> <num> <code> 
+function sendFullCmdhelp(msg, args, obj) {
+    
+}

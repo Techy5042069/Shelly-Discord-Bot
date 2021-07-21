@@ -11,6 +11,7 @@ module.exports = {
 };
 
 async function getfunc(msg, args, obj) {
+    //%conv <id/mention> <cratename> <amt>
     const mentioned = args.shift()
     const [crateName, invitesToBeConverted] = args
     const probabilityFile = await JSON.parse(fs.readFileSync(obj.config.probfile)) //probability json file, 
@@ -18,7 +19,7 @@ async function getfunc(msg, args, obj) {
     if (!crateNames.includes(crateName)) return await msg.reply('BRUH.. give me some valid crate name')
     if (invitesToBeConverted < probabilityFile.invitesForAKey) return msg.reply(`value less than minimum key required for the box/crate`)
 
-    let mentionedPerson = await getTragetUser(msg, mentioned)
+    let mentionedPerson = getTragetUser(msg, mentioned)
     userFileLocation = obj.config.invdir + mentionedPerson + '.json'
     if (!fs.existsSync(userFileLocation)) return msg.reply(`You don't have an entry , do ${obj.prefix}inv then try again!`)
     confirmConvert(msg, crateName, invitesToBeConverted, userFileLocation, obj, probabilityFile[crateName].invitesForAKey)
@@ -27,17 +28,16 @@ async function getfunc(msg, args, obj) {
 
 
 function getUserFromMention(mention, msg) {
-    if (!mention || mention.length != 18 || !Number.isInteger(mention)) return msg.author.id;
-
     if (mention.startsWith('<@') && mention.endsWith('>')) {
         mention = mention.slice(2, -1);
-
         if (mention.startsWith('!')) {
             mention = mention.slice(1);
         }
         return mention;
     } else if (mention.length = 18) { //18 is the length of snowflake
         return mention
+    } else {
+        return msg.author.id
     }
 }
 
@@ -47,7 +47,6 @@ async function getTragetUser(msg, mention) {
     } else {
         mentionedPerson = msg.author.id
     }
-    // console.log(roleMention, nameOfFile)
     return mentionedPerson //Check config.json for invdir
 }
 

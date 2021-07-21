@@ -3,20 +3,17 @@ const fs = require('fs')
 module.exports = {
     cmdname: 'add',
     exec(msg, args, obj) {
+        if (!msg.member.hasPermission('ADMINISTRATOR')) return
         getfunc(msg, args, obj);
     }
 };
 
 function getfunc(msg, args, obj) {
-    if (!msg.member.hasPermission('ADMINISTRATOR')) return
-    console.log(args)
-    if (args[0] = 'reedem') {
+    let subCmd = args[0]
+    if (subCmd == 'reedem') {
         getCreateReedemCode(msg, args, obj)
-        return
-    } else { // if (args[0] = 'a') 
-        console.log('ola')
-        addInvites(msg, args, obj)
-        return 
+    } else if (subCmd == 'invites') {
+        addUserInvites(msg, args, obj)
     }
 }
 //%add reedem <box/crate> <num of keys> <code>
@@ -51,15 +48,13 @@ function addReedemCode(msg, args, obj) {
 
 async function getCreateReedemCode(msg, args, obj) {
     const reedemFileLocation = obj.config.reedemFileLocation;
-    let reedemFile = JSON.parse(fs.readFileSync(reedemFileLocation))
+    let reedemFile = await JSON.parse(fs.readFileSync(reedemFileLocation))
     // let reedemKeys = Object.keys(reedemFile)
     if (args[1] && args[2] && args[3]) { //%add reedem <cratename> <amount of keys> <key>
-        let newReedemRewards = await addReedemCode(msg, args, obj);
+        let newReedemRewards = addReedemCode(msg, args, obj);
         if (!newReedemRewards) { return; } //exit immeditely if the return val is falsy
         newReedemCode = args[3]
         reedemFile[newReedemCode] = newReedemRewards;
-        // hasValidArg = true;
-        // console.log(reedemFile)
         fs.writeFileSync(reedemFileLocation, JSON.stringify(reedemFile, null, 2))
     }
 }
@@ -67,33 +62,38 @@ async function getCreateReedemCode(msg, args, obj) {
 //-----------------------------------------------------------------------------------
 //%add invites <usermention/id> <invites amt>
 
-function addInvites(msg, args, obj) {
-    console.log('hello')
-    if (!Number.isInteger(args[1])) return msg.reply(`Fk, that's not a real number`)
-    userSnowFlake = getTragetUser(msg, args[0])
-    userFileLocation = obj.config.invdir + userSnowFlake + '.json'
-    userInventoryFile = JSON.parse(fs.readFileSync(userFileLocation))
-    userInventoryFile.invites += args[1]
-    userInventoryFile.xinvites += args[1]
-    console.log(args, userSnowFlake, userFileLocation)
-    fs.writeFileSync(userFileLocation, JSON.stringify(userInventoryFile, null, 2))
-}
-
-
 function getTragetUser(msg, mention) {
-    if (!mention || mention.length != 18 || !Number.isInteger(mention)) return msg.author.id;
-
     if (mention.startsWith('<@') && mention.endsWith('>')) {
         mention = mention.slice(2, -1);
-
         if (mention.startsWith('!')) {
             mention = mention.slice(1);
         }
         return mention;
     } else if (mention.length = 18) { //18 is the length of snowflake
         return mention
+    }else {
+        return msg.author.id
     }
 }
+
+
+function addUserInvites(msg, args, obj) {
+    let invitesToAdd = parseInt(args[2])
+    if (!Number.isInteger(invitesToAdd)) return msg.reply(`Fk, that's not a real number`)
+
+    userSnowFlake = getTragetUser(msg, args[0])
+    userFileLocation = obj.config.invdir + userSnowFlake + '.json'
+    userInventoryFile = JSON.parse(fs.readFileSync(userFileLocation))
+    userInventoryFile.invites += invitesToAdd
+    userInventoryFile.xinvites += invitesToAdd
+    fs.writeFileSync(userFileLocation, JSON.stringify(userInventoryFile, null, 2), err => {
+        if (err) return console.log(err)
+    })
+    obj.msgEmbed.setColor('#0099ff').setTitle('Successfuly added some invites').setDescription(`**User: <@${userSnowFlake}> \n Invites added: ${invitesToAdd}**`)
+    msg.reply(obj.msgEmbed);
+}
+
+// function getConvertedInvitesTokeys()
 
 // async function getTragetUser(msg, mention) {
 //     if (canUseConv) {
