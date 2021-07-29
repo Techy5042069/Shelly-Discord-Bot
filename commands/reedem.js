@@ -42,7 +42,6 @@ async function getfunc(msg, args, obj) {
 }
 
 function loadKeysToAcc(msg, key, obj, reedemFile) {
-    console.log(reedemFile)
     rew = reedemFile[key].split(';'); //eg. ['kord',3]
     fileLocation = `${obj.config.invdir}${msg.author.id}.json`
     let invFile = JSON.parse(fs.readFileSync(fileLocation))

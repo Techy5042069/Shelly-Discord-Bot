@@ -1,5 +1,6 @@
 let fs = require('fs');
 const Discord = require('discord.js');
+const {probabilty} = require('./configs.js')
 module.exports = {
     cmdname: 'use',
     exec(msg, args, obj) {
@@ -7,26 +8,6 @@ module.exports = {
     }
 };
 
-let probabilty = {
-    normie: {
-        prob: [60, 12, 20, 2, 1], //probabilty of reward in percentage, put respective prob and rewards like 12% corresponds to 'SFA;1' 
-        rewards: ['NFA;1', 'SFA;1', 'napster;1', 'UNFA;1', 'USFA;1'],
-        invitesForAKey: 2
-    },
-    mid: {
-        prob: [38, 15, 27, 9, 4, 3, 2, 1, 1],
-        rewards: ['NFA;2', 'SFA;2', 'napster;5', 'crunchyroll;1', 'UNFA;2', 'USFA;1', 'hypixelRankedNFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1'],
-        invitesForAKey: 10
-    },
-    kord: {
-        prob: [26, 14, 15, 10, 9, 9, 6, 6, 5],
-        rewards: ['NFA;5', 'SFA;4', 'UNFA;3', 'USFA;2', 'hypixelRankedNFA;1', 'hypixelLeveledNFA;1', 'hypixelRankedSFA;1', 'hypixelLeveledSFA;1', 'OFNFA;1'],
-        invitesForAKey: 25
-    }
-}
-
-data = JSON.stringify(probabilty, null, 2) //these 2 line are to update the prob file in ./data/prob.json at defualt
-fs.writeFileSync('./data/prob.json', data)
 let timerStorage = {}
 
 
@@ -117,7 +98,7 @@ function buyCrate(msg, crateName, prefix, obj) {
     })
 }
 
-function finalizeProcess(msg, num, crateName, obj) { //do the final stuffs
+function finalizeProcess(msg, num, crateName, obj) {
     //this function generated random num ,and compares them with probability of the respective crate 
     // if true , it takes the index of probability and gets rewards from rewards[indexOfProbability]
     //then makes embed and sends it to the peron

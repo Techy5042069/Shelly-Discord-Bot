@@ -51,7 +51,7 @@ async function getCreateReedemCode(msg, args, obj) {
     let reedemFile = await JSON.parse(fs.readFileSync(reedemFileLocation))
     // let reedemKeys = Object.keys(reedemFile)
     if (args[1] && args[2] && args[3]) { //%add reedem <cratename> <amount of keys> <key>
-        let newReedemRewards = addReedemCode(msg, args, obj);
+        let newReedemRewards = await addReedemCode(msg, args, obj);
         if (!newReedemRewards) { return; } //exit immeditely if the return val is falsy
         newReedemCode = args[3]
         reedemFile[newReedemCode] = newReedemRewards;
@@ -78,10 +78,10 @@ function getTragetUser(msg, mention) {
 
 
 function addUserInvites(msg, args, obj) {
-    let invitesToAdd = parseInt(args[2])
+    let invitesToAdd = +args[2]
     if (!Number.isInteger(invitesToAdd)) return msg.reply(`Fk, that's not a real number`)
 
-    userSnowFlake = getTragetUser(msg, args[0])
+    userSnowFlake = getTragetUser(msg, args[1])
     userFileLocation = obj.config.invdir + userSnowFlake + '.json'
     userInventoryFile = JSON.parse(fs.readFileSync(userFileLocation))
     userInventoryFile.invites += invitesToAdd
@@ -92,15 +92,3 @@ function addUserInvites(msg, args, obj) {
     obj.msgEmbed.setColor('#0099ff').setTitle('Successfuly added some invites').setDescription(`**User: <@${userSnowFlake}> \n Invites added: ${invitesToAdd}**`)
     msg.reply(obj.msgEmbed);
 }
-
-// function getConvertedInvitesTokeys()
-
-// async function getTragetUser(msg, mention) {
-//     if (canUseConv) {
-//         mentionedPerson = await getUserFromMention(mention, msg);
-//     } else {
-//         mentionedPerson = msg.author.id
-//     }
-//     // console.log(roleMention, nameOfFile)
-//     return mentionedPerson //Check config.json for invdir
-// }

@@ -4,9 +4,12 @@ module.exports = {
     cmdname: 'conv',
     exec(msg, args, obj) {
         if (args.length != 3) return msg.reply('bruhhhhh, give valid arugments')
-        canUseConv = msg.member.hasPermission('ADMINISTRATOR') && args[0] && args[1] && args[2]
-        if (canUseConv) getfunc(msg, args, obj);
-        console.log('processed!')
+        canUseConv = msg.member.hasPermission('ADMINISTRATOR')
+        if (canUseConv) {
+            getfunc(msg, args, obj)
+            console.log('processed!')
+            return
+        };
     }
 };
 
@@ -16,12 +19,18 @@ async function getfunc(msg, args, obj) {
     const [crateName, invitesToBeConverted] = args
     const probabilityFile = await JSON.parse(fs.readFileSync(obj.config.probfile)) //probability json file, 
     crateNames = Object.keys(probabilityFile) //using probability file because it has all the crate/box info
-    if (!crateNames.includes(crateName)) return await msg.reply('BRUH.. give me some valid crate name')
-    if (invitesToBeConverted < probabilityFile.invitesForAKey) return msg.reply(`value less than minimum key required for the box/crate`)
-
+    if (!crateNames.includes(crateName)) {
+        return await msg.reply('BRUH.. give me some valid crate name')
+    }
+    if (invitesToBeConverted < probabilityFile.invitesForAKey) {
+        return msg.reply(`value less than minimum key required for the box/crate`)
+    }
     let mentionedPerson = getTragetUser(msg, mentioned)
     userFileLocation = obj.config.invdir + mentionedPerson + '.json'
-    if (!fs.existsSync(userFileLocation)) return msg.reply(`You don't have an entry , do ${obj.prefix}inv then try again!`)
+
+    if (!fs.existsSync(userFileLocation)) {
+        return msg.reply(`You don't have an entry , do ${obj.prefix}inv then try again!`)
+    }
     confirmConvert(msg, crateName, invitesToBeConverted, userFileLocation, obj, probabilityFile[crateName].invitesForAKey)
 }
 
